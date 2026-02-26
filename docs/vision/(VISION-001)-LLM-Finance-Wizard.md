@@ -14,6 +14,7 @@ last_updated: 2026-02-26
 | Draft | 2026-02-26 | -- | Rewrite: reframed around agentic coding agent as core domain |
 | Draft | 2026-02-26 | -- | Rewrite: scenario modeling as central concept; honest competitive analysis |
 | Draft | 2026-02-26 | -- | Fix: Monte Carlo as tool not non-goal; clarify code reliability spectrum; "existing = win" framing |
+| Draft | 2026-02-26 | -- | Add: Section 7 usage stories — five personas illustrating breadth of core loop |
 
 ---
 
@@ -286,136 +287,15 @@ The agent helps with ingestion -- especially CSV rules generation, categorizatio
 
 ---
 
-## 4. Market Landscape: An Honest Assessment
+## 4. Market Context
 
-**A note on intent:** This competitive analysis is not written to justify building something. If a tool already exists that accomplishes these goals -- or if one can be trivially assembled from existing pieces -- that's a win. The goal is to solve the problem, not to have a project. This section is written to be honest enough to serve as a buying guide, not just a build spec.
+No existing tool combines lever identification from actual spending data, combinatorial scenario modeling, and personalized coaching. The closest competitors (Origin Financial, Hiro) use pre-built planning models — they can answer "what if you save $300/month more?" but can't tell you *which* $300. Planning tools (ProjectionLab, Boldin) model parameters you define manually but never analyze your data to find the parameters. Dashboard apps (Monarch, YNAB) show where money went but can't model what to change.
 
-### 4.1 The Competitive Terrain
+The DIY version (Claude Code + hledger-mcp) proves the concept works but lacks validated computation, persistent skills, and accessibility beyond developers.
 
-This vision sits at the intersection of several existing product categories. Here's what each does well, where each stops, and how we relate to them.
+The competitive window is real but not permanent. Origin, Hiro, or Anthropic itself could move into this space.
 
-#### AI Financial Advisors: Origin Financial and Hiro
-
-These are the most direct competitors and deserve serious attention.
-
-**Origin Financial** (SEC-regulated, launched September 2025):
-- Multi-agent architecture (Claude Opus, GPT, Gemini, Perplexity)
-- Deterministic modules for all math (they explicitly do not trust LLMs for computation)
-- 138-point automated compliance checks
-- Connects to accounts via Plaid/MX/Mastercard
-- Scores 17 points above human CFPs on exam mock modules
-
-**Hiro Financial** (from the founder of Digit):
-- Conversational AI financial planning
-- What-if scenarios: "Buy a house for 1M or 1.5M? Take a year off work?"
-- Full financial-planning and tax engine under the surface
-- Account linking, CSV upload, PDF import
-
-**What they don't do:** Neither uses agentic code execution -- they run pre-built planning models with user-adjustable parameters, not open-ended analysis. The model's structure is fixed at build time; you can change inputs but not what the model computes. Neither identifies levers from your actual spending data. Neither helps you model *combinations* of changes. They can answer "What happens if I save $300 more per month?" but they can't tell you *which* $300 or model five different ways to get there.
-
-**Our relationship to them:** Complementary for some users, competitive for others. If Origin or Hiro adds lever identification and combinatorial scenario modeling, they become strong competitors. We should watch them closely.
-
-#### Financial Planning Tools: ProjectionLab, Boldin, Pralana
-
-**ProjectionLab** (~$96/yr, FIRE community favorite):
-- Detailed retirement modeling, Monte Carlo simulations, historical backtests
-- Complex tax modeling, Roth conversion analysis
-- Privacy-focused (no account linking required)
-- No AI/LLM integration whatsoever
-
-**Boldin** (~$120/yr):
-- Most comprehensive consumer planning tool
-- Recently added "AI Planner Assistant" (Gemini-based, beta)
-- User reviews are mixed: "very sycophantic," "hallucinates," reportedly miscalculated standard deductions
-- The AI is a conversational layer on top of the existing deterministic engine, not generative analysis
-
-**Pralana** (~$109/yr):
-- Most sophisticated consumer tool for power users
-- Full transparency with detailed spreadsheets
-- Linear programming optimization for withdrawals
-- No AI integration
-
-**What they don't do:** These tools model parameters you define manually. They never look at your actual spending and say "here are the 12 biggest levers, ranked by annual impact." The leap from "change X by Y" to "your data suggests these specific, concrete changes" is the gap.
-
-**Our relationship to them:** Different category. These are planning engines; we're an analytical agent. A user might use ProjectionLab for retirement modeling AND LLM Finance Wizard for spending analysis and lever identification. They're complementary, not competing.
-
-#### The DIY Approximation: Claude Code + hledger-mcp
-
-This deserves honest treatment because it's real and it works partially.
-
-**What exists today:** hledger-mcp is a production-quality MCP server with 40+ tools wrapping hledger's CLI. People on r/plaintextaccounting are already using it with Claude Desktop and Windsurf to analyze their finances, auto-enter transactions from receipts, and write ad-hoc analysis scripts.
-
-**What a developer can build in a weekend:** Claude Code + hledger-mcp + a well-written CLAUDE.md gets you:
-- Natural language queries on accounting data (works well)
-- One-shot analysis scripts (works well)
-- Basic trend identification (works decently)
-- Simple what-if calculations (works but math is unreliable)
-
-**What that approximation cannot provide:**
-- Reliable scenario modeling (ad-hoc LLM-generated code works but isn't tested or reviewed; it might use the wrong tax bracket or miss an edge case)
-- Systematic lever identification (requires domain knowledge encoded as structured analysis, not ad-hoc prompting)
-- Combinatorial scenario comparison across multiple levers
-- Persistent financial models that evolve across sessions
-- Validated, reusable calculations (each session generates new code from scratch -- there's no accumulation of tested, trusted analytical logic)
-- A coherent coaching curriculum
-- Anything a non-developer could use
-
-**Our relationship to it:** The DIY version proves the concept. It demonstrates that a developer with an afternoon can get real value from this pattern. LLM Finance Wizard packages that value into something reliable, repeatable, and extensible -- with validated computation, opinionated skills, and a self-extending capability library. The gap between the DIY version and a real product is the gap between "I got a useful answer once" and "I trust this system to analyze my finances reliably, month after month."
-
-#### Commercial Finance Apps: Monarch, YNAB, Copilot
-
-**What they do well:** Beautiful UIs, automatic bank sync, solid categorization (Monarch and Copilot now use LLMs), and Monarch has shipped an AI assistant for basic Q&A.
-
-**Where they stop:** Dashboards with chatbots, not analytical engines. They can tell you what you spent; they can't model what to change or why. They also lock your data in proprietary cloud systems.
-
-**Our relationship to them:** Different market. These serve people who want a simple dashboard. We serve people who want depth.
-
-#### AI Coaching Apps: Cleo, Kiro, SoLo IQ
-
-**What they do:** Chat-based behavioral nudges and personality-driven financial "coaching."
-
-**Where they stop:** No code execution, no computation, no scenario modeling. Cleo's "roast" of your spending is entertaining; it's not analysis.
-
-**Our relationship to them:** Entirely different product. Engagement tools vs. analytical tools.
-
-#### The Closest Architectural Analog: Claude for Financial Services
-
-Anthropic's Claude for Financial Services implements the exact architecture pattern we're describing: frontier LLM + code execution + structured data via MCP + domain-specific Skills + multi-format output (Excel, PowerPoint, chat). Every.to's "Claude Code for Finance" workshops ($5,000/person) teach this pattern to investment professionals.
-
-**But it targets institutional finance.** The Skills build DCF models and earnings previews. The data sources are SEC filings and market data. The users are analysts at hedge funds.
-
-**Our relationship to it:** Same architecture, different market. LLM Finance Wizard translates the institutional pattern to the individual.
-
-#### Open Source: Ignidash
-
-**Ignidash** is the most relevant open-source project -- a self-hostable alternative to ProjectionLab with Monte Carlo simulations and an AI chat feature (Azure OpenAI) that "knows your plan."
-
-**Our relationship to it:** Ignidash is in the "planning/projection" category, not the "analyze my actual spending and coach me" category. Could be a complementary tool.
-
-### 4.2 The Competitive Whitespace
-
-The clearest gap in the market is the **lever identification + combinatorial scenario modeling** combination:
-
-| Capability | Boldin / ProjectionLab | Origin / Hiro | Monarch / Copilot | Claude + hledger-mcp (DIY) | **LLM Finance Wizard** |
-|---|---|---|---|---|---|
-| What-if on manual params | Excellent | Good | No | Ad-hoc | **Yes (via skills)** |
-| Analyze actual spending | No | Partial (Plaid) | Yes (basic) | Yes (ad-hoc) | **Yes (systematic)** |
-| Identify levers from data | No | No | No | Ad-hoc | **Yes (core skill)** |
-| Combinatorial scenarios | Limited | No | No | Ad-hoc | **Yes (core skill)** |
-| Validated computation | Yes | Yes (pre-built models) | N/A | No (ad-hoc code, untested) | **Yes (tested skill code + ad-hoc)** |
-| Non-developer usable | Yes | Yes | Yes | No | **Phase 3 goal** |
-| Coaching tied to data | No | Partial | No | Ad-hoc | **Yes (core skill)** |
-
-**No tool today does all three:** (1) identifies levers from your actual data, (2) models combinations of those levers computationally, and (3) coaches you on the implications in the context of your financial goals.
-
-### 4.3 Competitive Risks
-
-- **Origin/Hiro could add analytical depth.** If Origin adds lever identification from Plaid data + combinatorial modeling, they become a strong direct competitor -- with the advantage of being a funded, polished consumer product.
-- **Boldin could improve their AI layer.** Their Gemini integration is weak today but could mature.
-- **Anthropic could ship "Claude for Personal Finance."** They have the infrastructure and the institutional version already exists.
-- **A well-funded team could package the Claude+hledger-mcp pattern** into a consumer product faster than an open-source project can mature.
-
-The window is real but not permanent. The advantage of the open-source + agentic approach is that the system improves with use (self-extending skills) and isn't locked to one provider's roadmap.
+Full analysis: [Competitive Analysis 2026](../competitive/competitive-analysis-2026.md) | Market research: [Personal Finance Landscape](../../research/personal-finance-landscape-2026.md)
 
 ---
 
@@ -464,21 +344,239 @@ hledger and Beancount users who already have structured financial data and want 
 
 ---
 
-## 7. Architecture Principles
+## 7. Usage Stories
 
-### 7.1 The Agent Writes Code; Code Does Math
+These are illustrative scenarios -- what a session looks like for different people with different needs. They are not comprehensive user journeys (which would cover discovery, onboarding, first-value moments, habit formation, and expansion over time). They show the breadth of what the agent does once someone is already using it.
+
+Each story enters the core loop (Section 2) at a different point, but all share the same foundation: structured data, code-executed analysis, and personalized interpretation.
+
+### 7.1 "Where did my money go?" — The Monthly Surprise
+
+**Maya, 31, product manager.** She checks her bank app and her savings balance is $200 less than she expected.
+
+```
+Maya:  "Why am I short $200 this month compared to last month?"
+
+Agent: [queries hledger: register expenses -p "this month" vs "last month"]
+       [executes Python diff analysis across categories]
+
+       Your total spending this month is $4,180 vs. $3,940 last month (+$240).
+       Three categories explain the difference:
+
+       ┌─────────────────────┬──────────┬──────────┬─────────┐
+       │ Category            │ This Mo. │ Last Mo. │ Change  │
+       ├─────────────────────┼──────────┼──────────┼─────────┤
+       │ food:dining-out     │   $620   │   $410   │  +$210  │
+       │ transport:rideshare │   $185   │   $130   │  +$55   │
+       │ shopping:clothing   │   $290   │   $340   │  -$50   │
+       └─────────────────────┴──────────┴──────────┴─────────┘
+
+       Dining accounts for almost all of it — 14 restaurant transactions
+       this month vs. 8 last month.
+
+Maya:  "Is this a trend or a one-off?"
+
+Agent: [executes 6-month rolling average analysis]
+
+       Your 6-month dining average is $440/month. This month ($620) is
+       1.4σ above your norm — notable but not your highest (February
+       was $680). However, the trend is upward:
+
+       $380 → $410 → $440 → $620 over the last four months.
+
+       If this trajectory holds, you're looking at ~$700/month by summer.
+```
+
+**What this illustrates:** The agent doesn't show a dashboard and wait — it identifies the specific driver, contextualizes it historically, and quantifies the trajectory. The user entered the loop at "analysis" and got coaching without asking for it.
+
+### 8.2 "What's this charge?" — The Subscription Audit
+
+**Priya, 35, freelance designer.** She notices a $14.99 charge she doesn't recognize and decides to clean house.
+
+```
+Priya:  "What is this DGTL*MBRSHP charge for $14.99? And while you're
+         at it, audit all my subscriptions."
+
+Agent:  [queries for recurring patterns matching DGTL*MBRSHP]
+        [executes subscription detection: regex on merchant names +
+         recurring amount/interval detection]
+
+        DGTL*MBRSHP has been recurring monthly since August 2025
+        ($14.99 × 7 = $104.93 total). Common matches: MasterClass,
+        Skillshare, or a news site. Check your email for a welcome
+        receipt around Aug 3, 2025.
+
+        Full subscription audit:
+
+        ┌──────────────────────┬─────────┬───────────┬─────────────────┐
+        │ Service              │ Monthly │ Since     │ Status          │
+        ├──────────────────────┼─────────┼───────────┼─────────────────┤
+        │ Spotify Family       │  $16.99 │ Jan 2023  │ Active          │
+        │ iCloud+ 200GB        │   $2.99 │ Mar 2023  │ Active          │
+        │ Adobe CC Photography │  $10.99 │ Jun 2023  │ Low usage       │
+        │ DGTL*MBRSHP          │  $14.99 │ Aug 2025  │ Unidentified    │
+        │ Netflix Standard     │  $17.99 │ Feb 2022  │ Active          │
+        │ Figma Professional   │  $15.00 │ Sep 2024  │ Active (work)   │
+        │ YouTube Premium      │  $13.99 │ Nov 2023  │ Active          │
+        │ Duolingo Plus        │   $6.99 │ Jan 2025  │ Low usage       │
+        │ NYT All Access       │   $4.00 │ Apr 2024  │ Active          │
+        └──────────────────────┴─────────┴───────────┴─────────────────┘
+
+        Total: $103.93/month ($1,247/year)
+
+        Flagged for review:
+        • Adobe CC — last identifiable usage was Oct 2025.
+        • Duolingo Plus — small charge, worth confirming usage.
+        • DGTL*MBRSHP — identify this one. If unused, that's $180/year.
+
+        Canceling the three flagged items saves $32.97/month ($396/year).
+```
+
+**What this illustrates:** A simple "what's this charge?" turns into a broader audit. This is also the kind of analysis that starts as agent-generated code and graduates into the skill library once the subscription-detection pattern is validated.
+
+### 8.3 "Tax time" — The Annual Summary
+
+**Marcus, 42, freelancer + part-time W2.** It's March and his accountant needs a summary.
+
+```
+Marcus: "I need my tax prep summary for 2025. I have W2 income from
+         Acme Corp, freelance 1099 income, and home office expenses."
+
+Agent:  [queries hledger for full-year income and expense by tax category]
+        [executes categorization validation + Schedule C allocation]
+
+        2025 Tax Preparation Summary
+        ════════════════════════════
+
+        INCOME
+        ┌────────────────────────┬────────────┬─────────────┐
+        │ Source                 │ Amount     │ Tax Form    │
+        ├────────────────────────┼────────────┼─────────────┤
+        │ Acme Corp (W2)         │ $68,400.00 │ W-2         │
+        │ Freelance clients (4)  │ $41,250.00 │ 1099-NEC    │
+        │ Interest income        │    $342.18 │ 1099-INT    │
+        ├────────────────────────┼────────────┼─────────────┤
+        │ Total                  │$109,992.18 │             │
+        └────────────────────────┴────────────┴─────────────┘
+
+        SCHEDULE C — BUSINESS EXPENSES
+        ┌────────────────────────┬────────────┬─────────────┐
+        │ Category               │ Amount     │ Notes       │
+        ├────────────────────────┼────────────┼─────────────┤
+        │ Home office (sq ft)    │  $3,840.00 │ 200/1100 sf │
+        │ Software & tools       │  $1,439.88 │ 12 services │
+        │ Professional dev       │    $890.00 │ 2 courses   │
+        │ Hardware               │  $2,149.00 │ MacBook Pro │
+        │ Internet (biz %)       │    $540.00 │ 45% alloc   │
+        ├────────────────────────┼────────────┼─────────────┤
+        │ Total deductions       │  $8,858.88 │             │
+        └────────────────────────┴────────────┴─────────────┘
+
+        Review flags:
+        • 3 transactions ($1,240) tagged "expenses:professional"
+          look personal (Best Buy, Amazon). Please confirm.
+        • Home office % (18.2%) is within safe harbor range.
+        • Estimated quarterly payments made: $3,200 total. Freelance
+          liability estimate is ~$8,400. You may be underpaid by ~$5,200.
+
+        Want me to generate this as a PDF for your accountant, or
+        export to a spreadsheet?
+```
+
+**What this illustrates:** Tax preparation demands exact numbers, correct allocations, and zero hallucination. Every row traces back to code executed against Marcus's structured journal — the agent queries, computes, and flags problems rather than summarizing from memory.
+
+### 8.4 "I want an emergency fund" — The Goal Seeker
+
+This is the same archetype as the core example in Section 2, from a slightly different angle. Jordan (27, software engineer, hledger user) asks for help building a 3-month emergency fund. The agent:
+
+1. Calculates the gap ($5,400 needed)
+2. Scans spending for 5 ranked levers (dining trend, unused subscriptions, insurance requote, grocery brand switching, coffee shops)
+3. Models 4 scenarios from low-effort ($47/month saved, 9.5 months) to aggressive ($387/month, 3.1 months)
+4. Jordan says "Scenario B, but I can't cut dining that much"
+5. Agent re-models with adjusted parameter — $137/month, 6.6 months, target date September
+
+**What this illustrates:** The full core loop in a single session — analysis, lever identification, scenario modeling, interactive refinement, plan commitment. The user enters at "goal-setting" rather than "something feels off."
+
+### 8.5 "Life is changing" — The Big Decision
+
+**Sam & Alex, couple.** Alex got a job offer in Denver ($95K vs. current $82K in Austin). Rent is $2,100 in Austin.
+
+```
+Sam:    "What does a move to Denver look like financially?"
+
+Agent:  [queries current spending baseline from hledger]
+        [executes cost-of-living adjustment model]
+        [executes relocation cost estimation]
+
+        CURRENT BASELINE (Austin, last 12 months)
+        Combined income:    $154,000/year ($12,833/month)
+        Total spending:     $9,240/month
+        Current savings:    $3,593/month
+
+        DENVER SCENARIO
+        ┌────────────────────────┬──────────┬──────────┬──────────┐
+        │ Category               │ Austin   │ Denver   │ Delta    │
+        ├────────────────────────┼──────────┼──────────┼──────────┤
+        │ Gross income (combined)│ $12,833  │ $13,917  │ +$1,084  │
+        │ After-tax income*      │ $10,450  │ $11,180  │  +$730   │
+        │ Rent (comparable area) │  $2,100  │  $2,550  │  +$450   │
+        │ Groceries (CoL adj)    │    $680  │    $720  │   +$40   │
+        │ Auto insurance         │    $178  │    $155  │   -$23   │
+        │ Other (unchanged)      │  $6,092  │  $6,092  │    $0    │
+        ├────────────────────────┼──────────┼──────────┼──────────┤
+        │ Net monthly savings    │  $3,210  │  $3,453  │  +$243   │
+        └────────────────────────┴──────────┴──────────┴──────────┘
+        * CO has 4.4% flat state tax vs. TX 0%, factored in.
+
+        RELOCATION COSTS (one-time): ~$11,100
+        BREAK-EVEN: 3.8 years at +$243/month net improvement.
+
+Sam:    "What if we negotiate to $100K?"
+
+Agent:  [re-models]
+
+        At $100K: net improvement becomes +$570/month.
+        Break-even drops to 1.6 years. Monthly savings: $3,780.
+
+        That's an extra $6,840/year. Invested at 7% over 5 years,
+        that's roughly $39,500 in additional wealth.
+
+        The $5K salary negotiation is worth ~$39K over 5 years.
+```
+
+**What this illustrates:** Life-event modeling that composes multiple analysis types — baseline extraction from real data, cost-of-living adjustment, tax modeling, relocation costing, break-even analysis, and investment projection. This is Phase 3 territory, but built from Phase 1 and 2 primitives.
+
+### What ties these stories together
+
+Every story follows the same core loop, entered at a different point:
+
+| Story | Entry point | Core loop stages exercised |
+|-------|-------------|---------------------------|
+| Maya (monthly surprise) | Analysis | Analysis → Coaching |
+| Priya (subscription audit) | A specific charge | Analysis → Lever identification |
+| Marcus (tax prep) | Reporting need | Analysis → Output |
+| Jordan (emergency fund) | Goal | Analysis → Levers → Scenarios → Refinement |
+| Sam & Alex (relocation) | Life event | Analysis → Scenarios → Refinement |
+
+The agent grounds every response in structured data queried and analyzed through code. The difference between these stories and what a chatbot produces is that every number in every table traces back to an executed query or calculation.
+
+---
+
+## 8. Architecture Principles
+
+### 8.1 The Agent Writes Code; Code Does Math
 
 The LLM never performs arithmetic directly. When analysis requires computation, the agent writes and executes code (Python, SQL, shell scripts) that queries the accounting engine and performs calculations in a standard runtime (pandas, numpy, etc.).
 
 LLMs are unreliable at math. Code is not. The agent's job is to translate intent into correct code. Novel analyses use agent-generated code (reliable but review-worthy); common analyses use battle-tested skill code (reviewed, tested, and reused). The skill library is the bridge between the two -- novel code that proves useful graduates into trusted skills over time.
 
-### 7.2 Opinionated Defaults, Escape Hatches Everywhere
+### 8.2 Opinionated Defaults, Escape Hatches Everywhere
 
 The skill library ships with strong opinions: preferred chart of accounts structures, recommended budgeting frameworks, standard report formats, lever identification heuristics. These opinions are explicitly documented, clearly justified, and easily overridden.
 
 The agent should be useful in the first five minutes. It should also never prevent a power user from doing something unusual.
 
-### 7.3 The Skill Library Is a First-Class Asset
+### 8.3 The Skill Library Is a First-Class Asset
 
 Skills encode domain knowledge, analytical methodologies, output templates, and validation logic. The skill library is:
 - **Version-controlled** alongside the user's financial data
@@ -486,19 +584,19 @@ Skills encode domain knowledge, analytical methodologies, output templates, and 
 - **Self-extending** -- the agent can draft new skills from novel analyses (like the transaction splitting example)
 - **Shareable** -- users can publish and import community skills
 
-### 7.4 Accounting Engine Agnosticism
+### 8.4 Accounting Engine Agnosticism
 
 The agent communicates with the accounting engine through a defined interface, not direct file manipulation. Switching from hledger to Beancount doesn't require rewriting skills. Users with custom Python data pipelines can integrate without adopting PTA.
 
-### 7.5 Human-in-the-Loop for Data Writes; Autonomous for Analysis
+### 8.5 Human-in-the-Loop for Data Writes; Autonomous for Analysis
 
 The agent freely reads data, runs analyses, generates reports, and builds dashboards without approval -- these are read-only operations with no risk. Write operations (adding transactions, modifying journal entries) require human approval by default.
 
 ---
 
-## 8. Core Capabilities in Detail
+## 9. Core Capabilities in Detail
 
-### 8.1 Lever Identification and Scenario Modeling
+### 9.1 Lever Identification and Scenario Modeling
 
 This is the central capability -- the thing no existing tool provides.
 
@@ -517,7 +615,7 @@ This is the central capability -- the thing no existing tool provides.
 
 **The synthesis** is what makes this more than a calculator: the agent connects levers to goals, models the combinations computationally, and coaches the user through the tradeoffs until they converge on a plan that fits their life.
 
-### 8.2 Financial Analysis via Code Execution
+### 9.2 Financial Analysis via Code Execution
 
 The agent's primary mode of operation for any question: translate it into executable analysis.
 
@@ -542,7 +640,7 @@ Agent: [queries current month vs. trailing 6-month averages by category]
        [flags specifics with context and asks for clarification]
 ```
 
-### 8.3 Financial Literacy Coaching
+### 9.3 Financial Literacy Coaching
 
 Not generic tips -- personalized education grounded in the user's actual data.
 
@@ -567,7 +665,7 @@ Agent: [queries all debt accounts: balances, rates, minimum payments]
 
 The coaching adapts to the user's level -- explains concepts when they're new, skips the explanation for returning users.
 
-### 8.4 Multi-Format Output
+### 9.4 Multi-Format Output
 
 The same analysis can be delivered as:
 
@@ -580,13 +678,13 @@ The same analysis can be delivered as:
 | **Excel/CSV** | Further analysis in external tools, sharing raw data |
 | **Interactive notebook** | Deep dives with adjustable assumptions |
 
-### 8.5 Self-Extending Skill Library
+### 9.5 Self-Extending Skill Library
 
 When the agent builds a novel analysis, it can be saved as a reusable, parameterized skill. Skills compose: lever identification feeds into scenario modeling, which feeds into tracking. The library is the compound advantage -- it gets more valuable with every interaction.
 
 ---
 
-## 9. Phased Delivery
+## 10. Phased Delivery
 
 ### Phase 0: Foundation (Current)
 
@@ -637,7 +735,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 
 ---
 
-## 10. Success Metrics
+## 11. Success Metrics
 
 | Metric | Target | Rationale |
 |--------|--------|-----------|
@@ -650,7 +748,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 
 ---
 
-## 11. Non-Goals
+## 12. Non-Goals
 
 - **Building an accounting engine.** hledger, Beancount, and custom Python handle this.
 - **Building an ingestion pipeline from scratch.** Plaid, hledger CSV rules, BeanHub Connect handle this. We make ingestion easier but don't own it.
@@ -662,7 +760,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 
 ---
 
-## 12. Risks and Open Questions
+## 13. Risks and Open Questions
 
 | Risk | Severity | Mitigation |
 |------|----------|------------|
@@ -684,24 +782,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 
 ---
 
-## Appendix A: Competitive Positioning Summary
-
-| Dimension | Origin / Hiro | Boldin / ProjectionLab | Monarch / Copilot | Claude + hledger (DIY) | **LLM Finance Wizard** |
-|-----------|---------------|------------------------|-------------------|------------------------|------------------------|
-| Primary value | AI financial advising | Retirement/FIRE planning | Dashboard + tracking | Ad-hoc analysis | **Lever ID + scenario modeling** |
-| Data layer | Plaid transactions | Manual parameters | Proprietary cloud | hledger journals | **Structured accounting engine** |
-| AI approach | LLM + pre-built models | Pre-built models (Boldin: +chat) | Classification + chat | Ad-hoc code execution | **Tested skills + ad-hoc code execution** |
-| Lever identification | No | No | No | Ad-hoc | **Core skill** |
-| Combinatorial scenarios | No | Manual parameters | No | Ad-hoc | **Core skill** |
-| Coaching tied to data | Partial (Origin) | No | No | Ad-hoc | **Core skill** |
-| Self-extending | No | No | No | No | **Yes** |
-| Validated computation | Yes (pre-built) | Yes (pre-built) | N/A | No (ad-hoc) | **Yes (skill code + ad-hoc)** |
-| Data ownership | Vendor cloud | Local input | Vendor cloud | User-controlled | **User-controlled** |
-| Open source | No | No | No | Partially (hledger-mcp) | **Yes** |
-
----
-
-## Appendix B: Why Now
+## Appendix A: Why Now
 
 1. **The architecture is proven.** Claude for Financial Services demonstrates that frontier LLM + code execution + structured data + domain Skills works for finance. The question is whether anyone builds the personal version.
 2. **The building blocks exist.** hledger-mcp, beanquery-mcp, Plaid integrations, and MCP provide the integration layer. The infrastructure cost of this project is low.
