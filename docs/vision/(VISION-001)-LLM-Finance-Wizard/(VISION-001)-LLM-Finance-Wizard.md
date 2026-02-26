@@ -326,3 +326,12 @@ Graduate from reactive analysis to proactive, strategic guidance.
 | [Architecture Overview](architecture-overview.md) | How the system works: code execution, skill library, accounting engine integration, capabilities |
 | [Competitive Analysis 2026](competitive-analysis-2026.md) | Detailed competitive positioning against Origin, Hiro, ProjectionLab, Monarch, and others |
 | [Personal Finance Landscape](../../research/personal-finance-landscape-2026.md) | Market research on the personal finance + AI ecosystem |
+
+## User Journeys
+
+| Journey | Persona | Arc |
+|---------|---------|-----|
+| [JOURNEY-001: Financial Fog to Clarity](../journey/(JOURNEY-001)-Financial-Fog-to-Clarity/(JOURNEY-001)-Financial-Fog-to-Clarity.md) | Maya (31, product manager) | Discovery → setup → first insight → habit → goal setting → expansion |
+| [JOURNEY-002: The Big Decision](../journey/(JOURNEY-002)-The-Big-Decision/(JOURNEY-002)-The-Big-Decision.md) | Sam & Alex (couple) | Life event → fast setup → baseline → scenario modeling → refinement → decision → tracking |
+| [JOURNEY-003: Digging Out of Debt](../journey/(JOURNEY-003)-Digging-Out-of-Debt/(JOURNEY-003)-Digging-Out-of-Debt.md) | Dani (28, teacher) | Overwhelm → honest picture → strategy modeling → lever identification → small wins → freedom |
+| [JOURNEY-004: The Annual Reckoning](../journey/(JOURNEY-004)-The-Annual-Reckoning/(JOURNEY-004)-The-Annual-Reckoning.md) | Marcus (42, freelancer) | Tax deadline → data scramble → categorization → tax summary → "wait, this is useful" → year 2 is easy |
