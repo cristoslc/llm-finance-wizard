@@ -4,15 +4,38 @@
 
 LLM Finance Wizard is a personal AI financial analyst -- an agentic coding agent that writes and executes code against structured accounting data to help you understand, manage, and improve your financial life.
 
-## What It Does
+## The Core Loop
 
-The agent sits on top of a structured accounting engine (hledger, Beancount, or custom Python) and provides:
+Most finance tools can tell you what you spent. None of them help you figure out what to change.
 
-- **Financial analysis via code execution** -- not chat-based guessing, but actual Python scripts that compute answers from your validated data
-- **Opinionated, battle-tested skills** for spending analysis, debt modeling, budgeting, net worth tracking, tax prep, and more
-- **Self-extending capability** -- the agent builds new analytical tools on the fly when your situation demands it
-- **Financial literacy coaching** personalized to your actual numbers, not generic advice
-- **Flexible output formats** -- chat, interactive dashboards, slide decks, PDFs, Excel
+LLM Finance Wizard connects **analysis** (what's happening) → **coaching** (why it matters) → **lever identification** (what you can change) → **scenario modeling** (what happens if you do) → **interactive refinement** (finding the right tradeoffs for your life).
+
+```
+You:   "I want to build a 3-month emergency fund. I have $4,300
+        saved and my essentials are about $3,200/month."
+
+Agent: [queries accounting engine, executes spending analysis code]
+
+       "You need $5,300 more. At your current savings rate, that's
+        12.9 months. But I found several levers in your spending:
+
+        1. Dining out: $480/mo avg (up 34% YoY). Your Q2 baseline
+           was $320. Reducing to $400 saves $80/mo.
+        2. Subscriptions: 3 of 9 show zero usage in 90 days ($90/mo).
+        3. Auto insurance: 22% above profile average (~$40/mo savings).
+
+        Scenario A (subs only): 9.5 months
+        Scenario B (subs + dining): 8.0 months
+        Scenario C (subs + dining + insurance): 7.6 months
+        Scenario D: Tell me which levers feel realistic."
+
+You:   "B, but I can't cut dining that much. $400 not $320."
+
+Agent: [re-models with adjusted parameters]
+
+       "Subs ($90) + dining to $400 ($80) + insurance ($40) = $210/mo
+        more → emergency fund by mid-November. Set this as your plan?"
+```
 
 ## Architecture
 
@@ -26,33 +49,16 @@ The agent sits on top of a structured accounting engine (hledger, Beancount, or 
 └──────────────┴──────────────────────┴───────────────────┘
 ```
 
-**The core domain is the agent and its skill library.** The accounting engine and ingestion pipeline are generic subdomains -- important, but solved problems we integrate rather than rebuild.
+**The core domain is the agent and its skill library.** The accounting engine and ingestion pipeline are generic subdomains -- solved problems we integrate rather than rebuild. The agent writes and executes code for all numerical work (never does math in its head), ships with opinionated skills for common analyses, and develops new capabilities through conversation.
 
-## Example Interactions
+## Key Capabilities
 
-```
-You:   "Am I on track for my emergency fund goal?"
-
-Agent: [queries accounting engine for savings balance and monthly essentials]
-       [writes + executes Python: savings rate projection]
-
-       "Your essential expenses average $3,200/mo. At your current savings
-        rate of $680/mo, you'll hit the 3-month target ($9,600) in 7.8 months.
-        Here's the trajectory..."
-       [renders savings chart with milestone markers]
-```
-
-```
-You:   "Generate my quarterly financial review as a slide deck."
-
-Agent: [runs spending-analysis, net-worth, cash-flow-forecast skills]
-       [compiles into PowerPoint with charts and narrative]
-
-       "Saved to quarterly-review-Q4-2025.pptx. Key highlights:
-        - Net worth up 4.2% ($+8,340)
-        - Dining out was 2.3σ above your 6-month average
-        - New recurring charge detected: StreamPlus ($29.99/mo)"
-```
+- **Lever identification** -- systematically scans your spending for concrete optimization opportunities, ranked by impact
+- **Scenario modeling** -- models combinations of levers across time horizons so you can find the tradeoffs that fit your life
+- **Financial analysis via code execution** -- actual Python scripts computing answers from validated data, not chat-based guessing
+- **Financial literacy coaching** -- personalized education grounded in your actual numbers
+- **Self-extending skills** -- the agent builds new analytical tools on the fly; useful ones become reusable skills
+- **Flexible output** -- chat, dashboards, slide decks, PDFs, Excel
 
 ## Documentation
 
