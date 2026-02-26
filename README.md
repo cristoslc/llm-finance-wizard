@@ -1,58 +1,67 @@
 # LLM Finance Wizard
 
-**Sovereign, AI-augmented personal finance. Powered by LLMs. Grounded by hledger.**
+**Your AI financial analyst. Powered by frontier LLMs. Grounded in structured accounting data.**
 
-LLM Finance Wizard is an agentic pipeline that brings commercial-grade automation to plain-text accounting -- without surrendering your financial data to the cloud.
+LLM Finance Wizard is a personal AI financial analyst -- an agentic coding agent that writes and executes code against structured accounting data to help you understand, manage, and improve your financial life.
 
-## The Problem
+## What It Does
 
-Personal finance tools force a false choice: surrender your data to cloud apps (Monarch, YNAB, Copilot) for convenience, or accept the manual drudgery of plain-text accounting for data sovereignty. LLM Finance Wizard eliminates that tradeoff.
+The agent sits on top of a structured accounting engine (hledger, Beancount, or custom Python) and provides:
 
-## How It Works
+- **Financial analysis via code execution** -- not chat-based guessing, but actual Python scripts that compute answers from your validated data
+- **Opinionated, battle-tested skills** for spending analysis, debt modeling, budgeting, net worth tracking, tax prep, and more
+- **Self-extending capability** -- the agent builds new analytical tools on the fly when your situation demands it
+- **Financial literacy coaching** personalized to your actual numbers, not generic advice
+- **Flexible output formats** -- chat, interactive dashboards, slide decks, PDFs, Excel
+
+## Architecture
 
 ```
-Bank data (CSV, Plaid, manual)
-  -> LLM agent generates/updates hledger CSV rules
-    -> hledger imports, deduplicates, validates
-      -> LLM categorizes remaining unknowns
-        -> You review a clean diff
-          -> Approved changes committed to git
+┌─────────────────────────────────────────────────────────┐
+│  CORE: Frontier Agentic Coding Agent                    │
+│  Opinionated skills + frontier coding + domain knowledge│
+├──────────────┬──────────────────────┬───────────────────┤
+│  Ingestion   │  Accounting Engine   │  Output           │
+│  (Plaid,CSV) │  (hledger, Beancount)│  (chat, slides…)  │
+└──────────────┴──────────────────────┴───────────────────┘
 ```
 
-The LLM handles the tedious parts (categorization, format conversion, natural language queries). hledger handles the math. You keep full control.
+**The core domain is the agent and its skill library.** The accounting engine and ingestion pipeline are generic subdomains -- important, but solved problems we integrate rather than rebuild.
 
-## Key Principles
+## Example Interactions
 
-- **Your data stays on your machine.** Default deployment uses local LLMs. Cloud is opt-in.
-- **Plain text is the source of truth.** Git-tracked `.journal` files. No databases, no proprietary formats, no lock-in.
-- **LLMs suggest, you decide.** Every change is a reviewable diff. The agent never commits without approval.
-- **hledger does the math.** LLMs are unreliable at arithmetic ([FinNLP 2025](https://aclanthology.org/2025.finnlp-1.6/)). hledger validates every entry.
+```
+You:   "Am I on track for my emergency fund goal?"
 
-## Planned Capabilities
+Agent: [queries accounting engine for savings balance and monthly essentials]
+       [writes + executes Python: savings rate projection]
 
-| Capability | Status |
-|-----------|--------|
-| CSV ingestion with LLM-generated rules | Planned (Phase 1) |
-| Transaction categorization (local LLM) | Planned (Phase 1) |
-| Natural language financial queries | Planned (Phase 1) |
-| MCP server for LLM-hledger integration | Planned (Phase 1) |
-| Plaid bank sync | Planned (Phase 2) |
-| Anomaly detection and insights | Planned (Phase 2) |
-| Receipt scanning (vision LLM) | Planned (Phase 3) |
-| Web UI for non-CLI users | Planned (Phase 3) |
+       "Your essential expenses average $3,200/mo. At your current savings
+        rate of $680/mo, you'll hit the 3-month target ($9,600) in 7.8 months.
+        Here's the trajectory..."
+       [renders savings chart with milestone markers]
+```
+
+```
+You:   "Generate my quarterly financial review as a slide deck."
+
+Agent: [runs spending-analysis, net-worth, cash-flow-forecast skills]
+       [compiles into PowerPoint with charts and narrative]
+
+       "Saved to quarterly-review-Q4-2025.pptx. Key highlights:
+        - Net worth up 4.2% ($+8,340)
+        - Dining out was 2.3σ above your 6-month average
+        - New recurring charge detected: StreamPlus ($29.99/mo)"
+```
 
 ## Documentation
 
 - **[Product Vision](docs/vision/(VISION-001)-LLM-Finance-Wizard.md)** -- Full product vision with competitive analysis, architecture, and phased roadmap
-
-## Prerequisites
-
-- [hledger](https://hledger.org/install.html) -- the plain-text accounting engine
-- An LLM provider -- local ([Ollama](https://ollama.ai/)) or cloud (Claude, GPT-4)
+- **[Market Research](research/personal-finance-landscape-2026.md)** -- Comprehensive landscape analysis of personal finance tools
 
 ## Project Status
 
-Early stage. The product vision is defined; implementation has not begun. See the [vision document](docs/vision/(VISION-001)-LLM-Finance-Wizard.md) for the full roadmap and research backing.
+Early stage. The product vision is defined; implementation has not begun. See the [vision document](docs/vision/(VISION-001)-LLM-Finance-Wizard.md) for the full roadmap.
 
 ## License
 
