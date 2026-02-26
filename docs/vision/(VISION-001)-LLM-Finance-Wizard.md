@@ -13,6 +13,7 @@ last_updated: 2026-02-26
 | Draft | 2026-02-26 | -- | Initial creation; v3 after internal iteration |
 | Draft | 2026-02-26 | -- | Rewrite: reframed around agentic coding agent as core domain |
 | Draft | 2026-02-26 | -- | Rewrite: scenario modeling as central concept; honest competitive analysis |
+| Draft | 2026-02-26 | -- | Fix: Monte Carlo as tool not non-goal; clarify code reliability spectrum; "existing = win" framing |
 
 ---
 
@@ -30,7 +31,7 @@ Personal finance tools in 2026 can show you where your money went. None of them 
 
 **The planning tools (ProjectionLab, Boldin, Pralana)** are excellent at modeling forward-looking scenarios: "If you reduce spending by $500/month, you can retire 2 years earlier." But they never look at your actual spending data and tell you *which* $500 to cut. They model parameters you define manually; they don't identify the parameters for you.
 
-**The AI financial advisors (Origin Financial, Hiro)** are the newest entrants. Origin uses multi-agent LLM architecture with deterministic math engines; Hiro offers conversational what-if scenarios. These are the most direct competitors to this vision and worth watching closely. But even they don't combine structured accounting data with agentic code execution -- they use parameterized engines, not dynamic analysis, and they don't help you discover the levers in your own spending.
+**The AI financial advisors (Origin Financial, Hiro)** are the newest entrants. Origin uses multi-agent LLM architecture with deterministic math engines; Hiro offers conversational what-if scenarios. These are the most direct competitors to this vision and worth watching closely. But even they don't combine structured accounting data with agentic code execution -- they use pre-built models with adjustable parameters, which means they can only answer the questions their developers anticipated. And they don't help you discover the levers in your own spending.
 
 **Plain-text accounting tools (hledger, Beancount)** give you a rigorous, programmable data foundation. But extracting insight requires both accounting knowledge and programming skill -- and every analysis must be hand-coded.
 
@@ -200,7 +201,14 @@ When you ask "Am I saving enough for retirement?", the agent doesn't generate a 
 
 The LLM provides intelligence. The code provides numerical accuracy. The accounting engine provides data integrity. Each layer does what it's best at.
 
-This separation is architecturally necessary, not just aesthetically clean. The FinNLP 2025 paper (ACL Anthology) found that *"LLMs struggle severely with accounting, often producing inaccurate calculations."* Origin Financial reached the same conclusion independently -- their system uses deterministic modules for all math, never the LLM. We follow the same principle: the LLM translates intent into code; deterministic execution produces numbers.
+This separation is architecturally necessary, not just aesthetically clean. The FinNLP 2025 paper (ACL Anthology) found that *"LLMs struggle severely with accounting, often producing inaccurate calculations."* Origin Financial reached the same conclusion independently -- their system uses pre-built math modules rather than letting the LLM compute directly.
+
+**The reliability spectrum of code.** All executed code is deterministic -- given the same inputs, it produces the same outputs. But not all code has the same reliability profile:
+
+- **Battle-tested skill code** (e.g., the debt payoff planner): Written once, reviewed, tested against known scenarios, and reused many times. This is as reliable as a traditional financial calculator. It's the equivalent of Origin's pre-built modules, except it started as agent-generated code and graduated through use.
+- **Agent-generated code** (e.g., a novel "should I refinance?" analysis): Written by the LLM on the fly. Correct in structure (the LLM is good at writing code) but might contain logic errors, miss edge cases, or use wrong tax rates. Trustworthy enough for exploration; should be reviewed before making major decisions.
+
+Skills are just code that's been validated through use. They start as generated code and graduate to trusted code. The skill library is the mechanism that converts ad-hoc reliability into battle-tested reliability over time.
 
 ### 3.2 Opinionated Defaults, Extensible by Design
 
@@ -280,6 +288,8 @@ The agent helps with ingestion -- especially CSV rules generation, categorizatio
 
 ## 4. Market Landscape: An Honest Assessment
 
+**A note on intent:** This competitive analysis is not written to justify building something. If a tool already exists that accomplishes these goals -- or if one can be trivially assembled from existing pieces -- that's a win. The goal is to solve the problem, not to have a project. This section is written to be honest enough to serve as a buying guide, not just a build spec.
+
 ### 4.1 The Competitive Terrain
 
 This vision sits at the intersection of several existing product categories. Here's what each does well, where each stops, and how we relate to them.
@@ -301,7 +311,7 @@ These are the most direct competitors and deserve serious attention.
 - Full financial-planning and tax engine under the surface
 - Account linking, CSV upload, PDF import
 
-**What they don't do:** Neither uses agentic code execution -- they run parameterized planning engines, not dynamic analysis. Neither identifies levers from your actual spending data. Neither helps you model *combinations* of changes. They can answer "What happens if I save $300 more per month?" but they can't tell you *which* $300 or model five different ways to get there.
+**What they don't do:** Neither uses agentic code execution -- they run pre-built planning models with user-adjustable parameters, not open-ended analysis. The model's structure is fixed at build time; you can change inputs but not what the model computes. Neither identifies levers from your actual spending data. Neither helps you model *combinations* of changes. They can answer "What happens if I save $300 more per month?" but they can't tell you *which* $300 or model five different ways to get there.
 
 **Our relationship to them:** Complementary for some users, competitive for others. If Origin or Hiro adds lever identification and combinatorial scenario modeling, they become strong competitors. We should watch them closely.
 
@@ -342,11 +352,11 @@ This deserves honest treatment because it's real and it works partially.
 - Simple what-if calculations (works but math is unreliable)
 
 **What that approximation cannot provide:**
-- Reliable scenario modeling (requires deterministic computation, not LLM math)
+- Reliable scenario modeling (ad-hoc LLM-generated code works but isn't tested or reviewed; it might use the wrong tax bracket or miss an edge case)
 - Systematic lever identification (requires domain knowledge encoded as structured analysis, not ad-hoc prompting)
 - Combinatorial scenario comparison across multiple levers
 - Persistent financial models that evolve across sessions
-- Validated calculations (tax brackets, compound interest -- the LLM WILL make errors in ad-hoc mode)
+- Validated, reusable calculations (each session generates new code from scratch -- there's no accumulation of tested, trusted analytical logic)
 - A coherent coaching curriculum
 - Anything a non-developer could use
 
@@ -392,7 +402,7 @@ The clearest gap in the market is the **lever identification + combinatorial sce
 | Analyze actual spending | No | Partial (Plaid) | Yes (basic) | Yes (ad-hoc) | **Yes (systematic)** |
 | Identify levers from data | No | No | No | Ad-hoc | **Yes (core skill)** |
 | Combinatorial scenarios | Limited | No | No | Ad-hoc | **Yes (core skill)** |
-| Validated computation | Yes | Yes (deterministic) | N/A | No (LLM may err) | **Yes (code-executed)** |
+| Validated computation | Yes | Yes (pre-built models) | N/A | No (ad-hoc code, untested) | **Yes (tested skill code + ad-hoc)** |
 | Non-developer usable | Yes | Yes | Yes | No | **Phase 3 goal** |
 | Coaching tied to data | No | Partial | No | Ad-hoc | **Yes (core skill)** |
 
@@ -456,11 +466,11 @@ hledger and Beancount users who already have structured financial data and want 
 
 ## 7. Architecture Principles
 
-### 7.1 The Agent Writes Code; Deterministic Execution Does Math
+### 7.1 The Agent Writes Code; Code Does Math
 
-The LLM never performs arithmetic directly. When analysis requires computation, the agent writes and executes code (Python, SQL, shell scripts) that either queries the accounting engine for validated data or performs calculations in a deterministic runtime (pandas, numpy, etc.).
+The LLM never performs arithmetic directly. When analysis requires computation, the agent writes and executes code (Python, SQL, shell scripts) that queries the accounting engine and performs calculations in a standard runtime (pandas, numpy, etc.).
 
-This is the same architectural principle that Origin Financial follows with their deterministic modules. LLMs are unreliable at math. Code is not. The agent's job is to translate intent into correct code.
+LLMs are unreliable at math. Code is not. The agent's job is to translate intent into correct code. Novel analyses use agent-generated code (reliable but review-worthy); common analyses use battle-tested skill code (reviewed, tested, and reused). The skill library is the bridge between the two -- novel code that proves useful graduates into trusted skills over time.
 
 ### 7.2 Opinionated Defaults, Escape Hatches Everywhere
 
@@ -646,7 +656,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 - **Building an ingestion pipeline from scratch.** Plaid, hledger CSV rules, BeanHub Connect handle this. We make ingestion easier but don't own it.
 - **Replacing professional financial advice.** The agent provides analysis and education, not fiduciary advice. It should help users have better conversations with real advisors, not replace them.
 - **Competing on UI with Monarch or Copilot.** We generate dashboards and slides as output, but we're not building a polished consumer finance app.
-- **Competing on planning with ProjectionLab.** We identify levers and model near/medium-term scenarios. Long-term retirement Monte Carlo simulation is ProjectionLab's strength -- and a complementary tool, not a competing one.
+- **Replicating ProjectionLab's UI.** ProjectionLab's dedicated retirement planning interface is polished and deep. We don't need to rebuild that UI. But the agent should absolutely know how and when to run a Monte Carlo simulation, model Roth conversions, or project retirement trajectories -- these are techniques in the agent's toolkit, applied when the user's question calls for them.
 - **Building a fintech product.** No payment processing, lending, or financial product recommendations.
 - **Requiring local-only deployment.** Local LLMs are supported for data-sensitive operations like categorization. But the core analysis loop benefits from frontier model quality. Cloud LLMs are a first-class option.
 
@@ -666,7 +676,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 ### Open Questions (candidates for Research Spikes)
 
 1. **SPIKE: Lever Identification Methodology** -- How should the agent systematically identify financial levers? What heuristics, benchmarks, and data patterns produce actionable (not obvious) suggestions?
-2. **SPIKE: Scenario Modeling Engine** -- Should scenario modeling use a deterministic computation library (like a lightweight version of what ProjectionLab/Origin use) or dynamic code generation per scenario? Tradeoffs in reliability vs. flexibility.
+2. **SPIKE: Scenario Modeling Engine** -- How should scenario modeling balance pre-built, tested computation (like ProjectionLab's models) with dynamically generated code (for novel analyses)? The skill library is the answer in principle -- but what's the right process for graduating ad-hoc analysis code into trusted skill code?
 3. **SPIKE: Accounting Engine Interface Design** -- What's the right abstraction layer for engine-agnostic queries?
 4. **SPIKE: Skill Specification Format** -- How should skills encode domain knowledge, parameters, validation, and output templates?
 5. **SPIKE: Dashboard Generation** -- What's the right approach for agent-generated interactive dashboards? Streamlit, Observable, static HTML?
@@ -680,12 +690,12 @@ Graduate from reactive analysis to proactive, strategic guidance.
 |-----------|---------------|------------------------|-------------------|------------------------|------------------------|
 | Primary value | AI financial advising | Retirement/FIRE planning | Dashboard + tracking | Ad-hoc analysis | **Lever ID + scenario modeling** |
 | Data layer | Plaid transactions | Manual parameters | Proprietary cloud | hledger journals | **Structured accounting engine** |
-| AI approach | LLM + deterministic engine | Deterministic (Boldin: +chat) | Classification + chat | Ad-hoc code execution | **Systematic code execution + skills** |
+| AI approach | LLM + pre-built models | Pre-built models (Boldin: +chat) | Classification + chat | Ad-hoc code execution | **Tested skills + ad-hoc code execution** |
 | Lever identification | No | No | No | Ad-hoc | **Core skill** |
 | Combinatorial scenarios | No | Manual parameters | No | Ad-hoc | **Core skill** |
 | Coaching tied to data | Partial (Origin) | No | No | Ad-hoc | **Core skill** |
 | Self-extending | No | No | No | No | **Yes** |
-| Validated computation | Yes (Origin) | Yes | N/A | No | **Yes (code-executed)** |
+| Validated computation | Yes (pre-built) | Yes (pre-built) | N/A | No (ad-hoc) | **Yes (skill code + ad-hoc)** |
 | Data ownership | Vendor cloud | Local input | Vendor cloud | User-controlled | **User-controlled** |
 | Open source | No | No | No | Partially (hledger-mcp) | **Yes** |
 
