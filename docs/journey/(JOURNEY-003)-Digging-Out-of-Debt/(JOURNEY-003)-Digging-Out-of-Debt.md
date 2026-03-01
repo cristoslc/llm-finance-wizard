@@ -1,17 +1,18 @@
 ---
 title: "JOURNEY-003: Digging Out of Debt"
+artifact: JOURNEY-003
 status: Draft
 author: cristos
 created: 2026-02-26
-last_updated: 2026-02-26
-parent: VISION-001
+last-updated: 2026-02-26
+parent-vision: VISION-001
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-02-26 | -- | Initial creation |
+| Draft | 2026-02-26 | 19ac5c0 | Initial creation |
 
 ---
 
@@ -249,6 +250,42 @@ Agent:  Debt-free.
 ```
 
 **Emotional state:** Relief. Pride. And a practical question: what now? The agent should be ready for it — the transition from debt payoff to wealth building is a natural continuation.
+
+---
+
+## Journey Diagram
+
+```mermaid
+journey
+    title Digging Out of Debt
+    section Trigger
+      Realizes minimums barely reduce balance: 1: Dani
+      Feels shame and frustration: 1: Dani
+      Finds LFW on Reddit: 3: Dani
+    section Setup
+      Enters debt balances, APRs, and income: 3: Dani
+      Looking at the full picture is hard: 2: Dani
+    section The Honest Picture
+      Sees 52% of payments go to interest: 2: Dani
+      4+ years to payoff at minimums is demoralizing: 2: Dani
+      Agent pivots immediately to what we can do: 3: Dani
+    section Strategy Modeling
+      Compares avalanche vs snowball with her debts: 4: Dani
+      Agent coaches the tradeoff (math vs psychology): 5: Dani
+    section Lever Identification
+      Agent finds subscriptions and dining savings: 4: Dani
+      Timeline drops from 25 to 19 months: 5: Dani
+    section Refinement
+      Dani adjusts levers to fit her life: 4: Dani
+      Commits to a plan she chose: 5: Dani
+    section Small Wins
+      First account paid off at month 6-7: 5: Dani
+      The long middle — progress feels invisible: 2: Dani
+      Agent tracks cumulative progress and interest saved: 4: Dani
+    section Freedom
+      Last payment clears at month 20: 5: Dani
+      $665/month freed up for savings goals: 5: Dani
+```
 
 ---
 

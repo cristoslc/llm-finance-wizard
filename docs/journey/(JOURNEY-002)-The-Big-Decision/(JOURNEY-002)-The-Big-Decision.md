@@ -1,17 +1,18 @@
 ---
 title: "JOURNEY-002: The Big Decision"
+artifact: JOURNEY-002
 status: Draft
 author: cristos
 created: 2026-02-26
-last_updated: 2026-02-26
-parent: VISION-001
+last-updated: 2026-02-26
+parent-vision: VISION-001
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-02-26 | -- | Initial creation |
+| Draft | 2026-02-26 | 19ac5c0 | Initial creation |
 
 ---
 
@@ -195,6 +196,39 @@ The agent monitors reality against the plan. Monthly check-ins flag drift:
 - "Month 6: you're at $22,800 saved. On track for the month-12 reassessment."
 
 The big decision journey transitions into the ongoing financial clarity journey (JOURNEY-001's monthly habit stage).
+
+---
+
+## Journey Diagram
+
+```mermaid
+journey
+    title The Big Decision
+    section Trigger
+      Alex gets job offer in Denver: 4: Sam, Alex
+      Google cost-of-living comparisons feel generic: 3: Sam, Alex
+    section Fast Setup
+      Downloads 6 months of CSVs under time pressure: 2: Sam
+      Agent generates import rules and categorizes: 4: Sam
+      Alex wants to participate but not use CLI: 3: Alex
+    section Baseline Extraction
+      Agent computes current baseline from actual data: 5: Sam, Alex
+      Specificity beats generic averages: 5: Sam, Alex
+    section Scenario Modeling
+      Agent models move with real numbers and tax impact: 5: Sam, Alex
+      CoL data feels generic, rent estimate uncertain: 2: Sam, Alex
+      Shows methodology and sources to build trust: 4: Sam, Alex
+    section Refinement
+      What if Alex negotiates to $100K?: 5: Sam, Alex
+      Scope creep: move + buy + negotiate + timing: 2: Sam, Alex
+      Agent names the key decision levers: 4: Sam, Alex
+    section Decision & Plan
+      Commit to plan with milestones: 5: Sam, Alex
+      Generate shareable PDF for Alex: 4: Sam, Alex
+    section Post-Decision Tracking
+      Monthly check-ins flag drift: 4: Sam, Alex
+      Transitions to ongoing financial management: 4: Sam, Alex
+```
 
 ---
 

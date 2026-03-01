@@ -1,17 +1,18 @@
 ---
 title: "JOURNEY-004: The Annual Reckoning"
+artifact: JOURNEY-004
 status: Draft
 author: cristos
 created: 2026-02-26
-last_updated: 2026-02-26
-parent: VISION-001
+last-updated: 2026-02-26
+parent-vision: VISION-001
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-02-26 | -- | Initial creation |
+| Draft | 2026-02-26 | 19ac5c0 | Initial creation |
 
 ---
 
@@ -266,6 +267,39 @@ Agent:  Already done. You've been importing monthly.
 ```
 
 **Emotional state:** "Why didn't I do this years ago?" The annual dread is gone. The system paid for itself in the first year and compounds from there.
+
+---
+
+## Journey Diagram
+
+```mermaid
+journey
+    title The Annual Reckoning
+    section Trigger
+      Accountant sends annual email: 1: Marcus
+      Annual dread and resentment: 1: Marcus
+    section Data Scramble
+      Assembles CSVs, PayPal, Venmo, receipts: 2: Marcus
+      Multiple sources, different formats: 2: Marcus
+      Agent triages: auto-categorizes easy ones: 4: Marcus
+    section Categorization
+      Works through 62 ambiguous transactions: 2: Marcus
+      Business/personal splits are tedious: 2: Marcus
+      Agent batches and learns patterns: 4: Marcus
+    section Tax Summary
+      Agent generates full tax prep summary: 5: Marcus
+      Catches missed deductions and underpayment: 5: Marcus
+      Year-over-year comparison is new: 5: Marcus
+    section Accountant Handoff
+      Exports PDF and spreadsheet: 5: Marcus
+      Accountant is happy: 5: Marcus
+    section Discovery
+      Asks what else the tool can do: 4: Marcus
+      Freelance client analysis is unique insight: 5: Marcus
+    section Next Year
+      Data already structured from monthly imports: 5: Marcus
+      Tax prep is a 5-minute task: 5: Marcus
+```
 
 ---
 

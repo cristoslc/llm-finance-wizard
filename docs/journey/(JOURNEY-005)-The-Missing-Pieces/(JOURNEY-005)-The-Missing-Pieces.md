@@ -1,17 +1,18 @@
 ---
 title: "JOURNEY-005: The Missing Pieces"
+artifact: JOURNEY-005
 status: Draft
 author: cristos
 created: 2026-03-01
-last_updated: 2026-03-01
-parent: VISION-001
+last-updated: 2026-03-01
+parent-vision: VISION-001
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-03-01 | -- | Initial creation |
+| Draft | 2026-03-01 | ee05175 | Initial creation |
 
 ---
 
@@ -273,6 +274,38 @@ Agent: Your W-2 just became available. Comparing to last year:
 - Transaction-level FSA reminders ("this looks FSA-eligible, did you submit it?") are high-value, low-effort nudges
 - The year-over-year W-2 comparison closes the loop on the entire journey: here's what you changed, here's the result
 - This naturally feeds into other journeys — the total comp view informs JOURNEY-002 (big decisions like job changes) and the tax optimization feeds JOURNEY-004 (annual reckoning)
+
+---
+
+## Journey Diagram
+
+```mermaid
+journey
+    title The Missing Pieces
+    section The Question
+      Notices $3,400/month gap between gross and net: 3: Priya
+      Pre-tax world is invisible from bank data: 2: Priya
+      Agent identifies gap and asks for paystub: 4: Priya
+    section Document Upload
+      Uploads paystub PDF from HR portal: 3: Priya
+      Paystub format variety is challenging: 2: Priya
+      Agent extracts all line items and cross-references: 5: Priya
+    section Gap Analysis
+      401k match money left on the table: 5: Priya
+      No FSA or HSA enrolled: 4: Priya
+      Cross-references paystub with transaction history: 5: Priya
+    section Full Picture
+      Uploads W-2, benefits summary, 401k statement: 3: Priya
+      Total compensation view is a revelation: 5: Priya
+      Document accumulation feels like homework: 3: Priya
+    section Action Plan
+      Do now / do at enrollment / investigate triage: 5: Priya
+      Agent can't execute actions in HR portals: 2: Priya
+      $2,080/yr in concrete value identified: 5: Priya
+    section Ongoing
+      Transaction-level FSA reminders: 4: Priya
+      Year-over-year W-2 comparison validates decisions: 5: Priya
+```
 
 ---
 

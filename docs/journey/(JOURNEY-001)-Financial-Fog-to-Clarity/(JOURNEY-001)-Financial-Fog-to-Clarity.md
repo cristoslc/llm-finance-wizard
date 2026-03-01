@@ -1,17 +1,18 @@
 ---
 title: "JOURNEY-001: Financial Fog to Clarity"
+artifact: JOURNEY-001
 status: Draft
 author: cristos
 created: 2026-02-26
-last_updated: 2026-02-26
-parent: VISION-001
+last-updated: 2026-02-26
+parent-vision: VISION-001
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-02-26 | -- | Initial creation |
+| Draft | 2026-02-26 | 19ac5c0 | Initial creation |
 
 ---
 
@@ -209,6 +210,40 @@ Agent: Monthly check-in — March 2026
 Each question pushes into new territory. Some are handled by existing skills; some require the agent to write new analysis code. The skill library grows.
 
 **Emotional state:** "I'm actually good at this." Maya has gone from financial fog to financial confidence. The tool didn't just organize her money — it built her financial literacy.
+
+---
+
+## Journey Diagram
+
+```mermaid
+journey
+    title Financial Fog to Clarity
+    section Discovery
+      Reads HN thread about LFW: 4: Maya
+      Reads README, sees emergency fund example: 5: Maya
+    section Setup & Ingestion
+      Downloads CSVs from bank and credit cards: 3: Maya
+      CSV formats vary wildly between banks: 2: Maya
+      Agent generates import rules and categorizes: 4: Maya
+      Batch categorization of ambiguous transactions: 3: Maya
+    section First Insight
+      Asks first question, gets spending breakdown: 5: Maya
+      Bad categorization breaks trust: 2: Maya
+      Agent surfaces something user didn't ask about: 5: Maya
+    section Going Deeper
+      Month-over-month diff, subscription audit: 4: Maya
+      Financial literacy builds through own data: 5: Maya
+    section Goal Setting
+      Sets savings goal, agent identifies levers: 5: Maya
+      Lever suggestions feel judgmental: 2: Maya
+      Interactive scenario refinement: 4: Maya
+    section Monthly Habit
+      Monthly check-in, 5 minutes: 5: Maya
+      Agent celebrates wins, contextualizes setbacks: 4: Maya
+    section Expansion
+      Asks bigger questions (401k, car, retirement): 5: Maya
+      Skill library grows with ambition: 4: Maya
+```
 
 ---
 

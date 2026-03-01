@@ -1,20 +1,21 @@
 ---
 title: "VISION-001: LLM Finance Wizard -- Your AI Financial Analyst"
+artifact: VISION-001
 status: Draft
 author: cristos
 created: 2026-02-26
-last_updated: 2026-02-26
+last-updated: 2026-02-26
 ---
 
-### Lifecycle
+## Lifecycle
 
 | Phase | Date | Commit | Notes |
 |-------|------|--------|-------|
-| Draft | 2026-02-26 | -- | Initial creation; v3 after internal iteration |
-| Draft | 2026-02-26 | -- | Rewrite: reframed around agentic coding agent as core domain |
-| Draft | 2026-02-26 | -- | Rewrite: scenario modeling as central concept; honest competitive analysis |
-| Draft | 2026-02-26 | -- | Fix: Monte Carlo as tool not non-goal; clarify code reliability spectrum; "existing = win" framing |
-| Draft | 2026-02-26 | -- | Restructure: extract architecture to supporting doc; extract competitive analysis; remove usage stories (will become JOURNEY-NNN artifacts) |
+| Draft | 2026-02-26 | 257c70d | Initial creation; v3 after internal iteration |
+| Draft | 2026-02-26 | 4053975 | Rewrite: reframed around agentic coding agent as core domain |
+| Draft | 2026-02-26 | 6c39dd2 | Rewrite: scenario modeling as central concept; honest competitive analysis |
+| Draft | 2026-02-26 | 7b2eacc | Fix: Monte Carlo as tool not non-goal; clarify code reliability spectrum; "existing = win" framing |
+| Draft | 2026-02-26 | f3754dc | Restructure: extract architecture to supporting doc; extract competitive analysis; remove usage stories (will become JOURNEY-NNN artifacts) |
 
 ---
 
@@ -162,7 +163,7 @@ The DIY version (Claude Code + hledger-mcp) proves the concept works but lacks v
 
 The competitive window is real but not permanent. Origin, Hiro, or Anthropic itself could move into this space.
 
-Full analysis: [Competitive Analysis 2026](competitive-analysis-2026.md) | Market research: [Personal Finance Landscape](../../research/personal-finance-landscape-2026.md)
+Full analysis: [Competitive Analysis 2026](competitive-analysis-2026.md)
 
 ---
 
@@ -325,7 +326,7 @@ Graduate from reactive analysis to proactive, strategic guidance.
 |----------|---------|
 | [Architecture Overview](architecture-overview.md) | How the system works: code execution, skill library, accounting engine integration, capabilities |
 | [Competitive Analysis 2026](competitive-analysis-2026.md) | Detailed competitive positioning against Origin, Hiro, ProjectionLab, Monarch, and others |
-| [Personal Finance Landscape](../../research/personal-finance-landscape-2026.md) | Market research on the personal finance + AI ecosystem |
+| [Roadmap](roadmap.md) | Phased delivery timeline and milestone status |
 
 ## User Journeys
 
@@ -335,3 +336,4 @@ Graduate from reactive analysis to proactive, strategic guidance.
 | [JOURNEY-002: The Big Decision](../journey/(JOURNEY-002)-The-Big-Decision/(JOURNEY-002)-The-Big-Decision.md) | Sam & Alex (couple) | Life event → fast setup → baseline → scenario modeling → refinement → decision → tracking |
 | [JOURNEY-003: Digging Out of Debt](../journey/(JOURNEY-003)-Digging-Out-of-Debt/(JOURNEY-003)-Digging-Out-of-Debt.md) | Dani (28, teacher) | Overwhelm → honest picture → strategy modeling → lever identification → small wins → freedom |
 | [JOURNEY-004: The Annual Reckoning](../journey/(JOURNEY-004)-The-Annual-Reckoning/(JOURNEY-004)-The-Annual-Reckoning.md) | Marcus (42, freelancer) | Tax deadline → data scramble → categorization → tax summary → "wait, this is useful" → year 2 is easy |
+| [JOURNEY-005: The Missing Pieces](../journey/(JOURNEY-005)-The-Missing-Pieces/(JOURNEY-005)-The-Missing-Pieces.md) | Priya (29, software engineer) | The question → document upload → gap analysis → full picture → action plan → ongoing intelligence |

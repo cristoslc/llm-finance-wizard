@@ -11,8 +11,6 @@ source: "Extracted from VISION-001 to keep the vision document focused"
 
 **A note on intent:** This competitive analysis is not written to justify building something. If a tool already exists that accomplishes these goals -- or if one can be trivially assembled from existing pieces -- that's a win. The goal is to solve the problem, not to have a project. This document is written to be honest enough to serve as a buying guide, not just a build spec.
 
-See also: [Market Research — Personal Finance Landscape 2026](../../research/personal-finance-landscape-2026.md)
-
 ---
 
 ## 1. The Competitive Terrain
